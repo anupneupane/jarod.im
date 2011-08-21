@@ -21,7 +21,58 @@ table {
   border-spacing: 0;
 }
 
+/* style
+ * -------------------------------------
+ */
+
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background: rgb(20, 20, 20);
+  width: 850px;
+  margin: 0 auto;
+}
+
+.photo {
+  padding: 125px 0;
+}
+
+img {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 50px rgb(0, 0, 0);
+}
+
+#controls {
+  position: fixed;
+  top: 45%;
+  right: 75px;
+  height: 100%;
+}
+
+#controls a {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgb(0, 0, 0);
+  width: 20px;
+  height: 5%;
+  min-height: 50px;
+  display: block;
+  background: rgb(50, 50, 50);
+}
+
+#controls a:hover {
+  background: rgb(55, 55, 55);
+}
+
+#controls a:active {
+  background: rgb(45, 45, 45);
+}
+
+#controls a:first-child {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+#controls a:last-child {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }

@@ -1,0 +1,3 @@
+[submodule "scripts/navsimple"]
+	path = scripts/navsimple
+	url = https://github.com/3n/NavSimple.git

@@ -27,12 +27,15 @@ end
 
 images = filter_files(image_files, /.+.jpg/)
 styles = filter_files(css_files, /.+.css/)
-scripts = filter_files(js_files, /.+.js/)
+scripts = filter_files(js_files, /.+.js/).reverse()
 
 # build the doc
 builder = Nokogiri::HTML::Builder.new do |doc|
   doc.html {
     doc.head {
+      doc.title {
+        doc.text 'Jarod Luebbert'
+      }
       styles.each do |style|
         doc.link(
           :rel => "stylesheet",
@@ -51,8 +54,10 @@ builder = Nokogiri::HTML::Builder.new do |doc|
       end
     }
     doc.body {
-      images.each do |image|
-        doc.img(:src => image, :alt => image)
+      images.each_with_index do |image, i|
+        doc.div(:id => "#{i}", :class => 'photo') {
+          doc.img(:src => image, :alt => image)
+        }
       end
     }
   }
@@ -62,3 +67,23 @@ File.open(INDEX, 'w') do |file|
   file.write(builder.to_html)
 end
 
+File.open('./scripts/z-app.js', 'w') do |file|
+  sections = []
+  (0..images.size()-1).to_a.each do |i|
+    sections << "#" + i.to_s
+  end
+  file.write(
+<<-eos
+window.addEvent('load', function() {
+  var ns = new NavSimple({
+    sections: '#{sections.join(',')}',
+    offset: { x: 0, y: 0 }
+  });
+  ns.activate();
+  ns.addEvent('scrollComplete', function(section, curr, ns) {
+    window.location.hash = '#' + curr;
+  });
+});
+eos
+            )
+end
