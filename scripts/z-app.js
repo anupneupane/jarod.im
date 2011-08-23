@@ -7,4 +7,7 @@ window.addEvent('load', function() {
   ns.addEvent('scrollComplete', function(section, curr, ns) {
     window.location.hash = '#' + curr;
   });
+  ns.addEvent('nextSection', function(section, curr, ns) {
+    $('howto').fade('out');
+  });
 });
