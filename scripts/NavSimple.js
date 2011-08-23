@@ -135,7 +135,9 @@ var NavSimple = new Class({
       if (this.options.keyboardNavSpace){
         this.keyboard.addEvents({
           'space'       : function(e) { e.preventDefault(); this.nextSection(); }.bind(this),
-          'shift+space' : function(e) { e.preventDefault(); this.previousSection(); }.bind(this)   
+          'shift+space' : function(e) { e.preventDefault(); this.previousSection(); }.bind(this),
+          'down': function(e) { e.preventDefault(); this.nextSection(); }.bind(this),
+          'up' : function(e) { e.preventDefault(); this.previousSection(); }.bind(this)
         });
       }
       
