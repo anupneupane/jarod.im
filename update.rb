@@ -55,7 +55,7 @@ builder = Nokogiri::HTML::Builder.new do |doc|
     }
     doc.body {
       doc.div(:id => 'howto') {
-        doc.text 'Use up, down, j, k, or space to navigate.'
+        doc.text 'Use j, k, up, down, or spacebar to navigate.'
       }
       images.each_with_index do |image, i|
         doc.div(:id => "#{i}", :class => 'photo') {
@@ -87,6 +87,9 @@ window.addEvent('load', function() {
     window.location.hash = '#' + curr;
   });
   ns.addEvent('nextSection', function(section, curr, ns) {
+    $('howto').fade('out');
+  });
+  ns.addEvent('previousSection', function(section, curr, ns) {
     $('howto').fade('out');
   });
 });

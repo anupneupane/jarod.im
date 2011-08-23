@@ -10,4 +10,7 @@ window.addEvent('load', function() {
   ns.addEvent('nextSection', function(section, curr, ns) {
     $('howto').fade('out');
   });
+  ns.addEvent('previousSection', function(section, curr, ns) {
+    $('howto').fade('out');
+  });
 });
