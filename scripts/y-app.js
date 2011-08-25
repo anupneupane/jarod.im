@@ -5,6 +5,12 @@ function resize() {
   var padding = (windowHeight - 567) / 2;
   Array.each($$('div.photo'), function(photo) {
     photo.setStyle('padding', padding + 'px 0px');
+    photo.addEvent('mouseenter', function() {
+      this.getElement('.toolbar').fade('in');
+    });
+    photo.addEvent('mouseleave', function() {
+      this.getElement('.toolbar').fade('out');
+    });
   });
   var howto = document.id('howto');
   var height = howto.getSize().y;

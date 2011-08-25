@@ -30,56 +30,41 @@ body {
   background: rgb(20, 20, 20);
   width: 850px;
   margin: 0 auto;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
 }
 
 .photo {
   padding: 125px 0;
 }
 
+.italics {
+  font-style: italic;
+}
+
 img {
   box-shadow: 0 0 50px rgb(0, 0, 0);
 }
 
+.toolbar {
+  position: relative;
+  bottom: 30px;
+  height: 30px;
+  width: 100%;
+  text-align: right;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  opacity: 0;
+}
+
+.toolbar span {
+  margin: 0 15px;
+  line-height: 30px;
+}
+
 #howto {
-  font-size: 16px;
   opacity: 0.9;
   bottom: 40px;
   position: fixed;
   left: 39%;
-}
-
-#controls {
-  position: fixed;
-  top: 45%;
-  right: 75px;
-  height: 100%;
-}
-
-#controls a {
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgb(0, 0, 0);
-  width: 20px;
-  height: 5%;
-  min-height: 50px;
-  display: block;
-  background: rgb(50, 50, 50);
-}
-
-#controls a:hover {
-  background: rgb(55, 55, 55);
-}
-
-#controls a:active {
-  background: rgb(45, 45, 45);
-}
-
-#controls a:first-child {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-
-#controls a:last-child {
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
 }

@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'nokogiri'
 require 'find'
+require 'exifr'
 
 IMAGE_DIR = './images'
 CSS_DIR = './styles'
@@ -58,8 +59,14 @@ builder = Nokogiri::HTML::Builder.new do |doc|
         doc.text 'Use j, k, up, down, or spacebar to navigate.'
       }
       images.each_with_index do |image, i|
+        @exif = EXIFR::JPEG.new(image)
         doc.div(:id => "#{i}", :class => 'photo') {
           doc.img(:src => image, :alt => image)
+          doc.div(:class => 'toolbar') {
+            doc.span(@exif.exposure_time.to_s)
+            doc.span("f#{ @exif.f_number.to_f }")
+            doc.span(@exif.model)
+          }
         }
       end
     }
