@@ -63,9 +63,12 @@ builder = Nokogiri::HTML::Builder.new do |doc|
         doc.div(:id => "#{i}", :class => 'photo') {
           doc.img(:src => image, :alt => image)
           doc.div(:class => 'toolbar') {
+            doc.span("#{ @exif.focal_length }mm")
             doc.span(@exif.exposure_time.to_s)
-            doc.span("f#{ @exif.f_number.to_f }")
-            doc.span(@exif.model)
+            doc.span("f/#{ @exif.f_number.to_f }")
+            doc.span(@exif.model.split(' ').each { |w|
+              w.capitalize!
+            }.join(' '))
           }
         }
       end
