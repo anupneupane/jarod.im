@@ -2,11 +2,13 @@ require 'rubygems'
 require 'nokogiri'
 require 'find'
 require 'exifr'
+require 'aws-sdk'
 
-IMAGE_DIR = './images'
-CSS_DIR = './styles'
-JS_DIR = './scripts'
+IMAGE_DIR = './_images'
+CSS_DIR = './_styles'
+JS_DIR = './_scripts'
 INDEX = './index.html'
+CONFIG_FILE = './_config.yml'
 
 image_files = []
 css_files = []
@@ -30,62 +32,28 @@ def filename_to_permalink(filename)
   filename.gsub('/', '-').gsub('.jpg', '').gsub('images-', '')
 end
 
+config = YAML.load(File.read(CONFIG_FILE))
+AWS.config(config)
+
+def upload_files_to_s3(filenames, bucket_name)
+  s3 = AWS::S3.new
+  bucket = s3.buckets.create(bucket_name)
+  public_urls = []
+  filenames.each do |filename|
+    basename = File.basename(filename)
+    o = bucket.objects[basename]
+    o.write(:file => filename)
+    puts "#{ filename } => #{ o.public_url }"
+    public_urls << o.public_url
+  end
+  public_urls
+end
+
 images = filter_files(image_files, /.+.jpg/)
 styles = filter_files(css_files, /.+.css/)
 scripts = filter_files(js_files, /.+.js/).reverse()
 
-# build the doc
-builder = Nokogiri::HTML::Builder.new do |doc|
-  doc.html {
-    doc.head {
-      doc.title {
-        doc.text 'Jarod Luebbert'
-      }
-      styles.each do |style|
-        doc.link(
-          :rel => "stylesheet",
-          :href => style,
-          :type => 'text/css',
-          :media => 'screen',
-          :charset => 'utf-8'
-        )
-      end
-      scripts.each do |script|
-        doc.script(
-          :type => 'text/javascript',
-          :charset => 'utf-8',
-          :src => script
-        )
-      end
-    }
-    doc.body {
-      doc.div(:id => 'howto') {
-        doc.text 'Use j, k, up, down, or spacebar to navigate.'
-      }
-      images.each do |image|
-        @exif = EXIFR::JPEG.new(image)
-        doc.div(:id => "#{ filename_to_permalink(image) }",
-                :class => 'photo') {
-          doc.img(:src => image, :alt => image)
-          doc.div(:class => 'toolbar') {
-            doc.span("#{ @exif.focal_length }mm")
-            doc.span(@exif.exposure_time.to_s)
-            doc.span("f/#{ @exif.f_number.to_f }")
-            doc.span(@exif.model.split(' ').each { |w|
-              w.capitalize!
-            }.join(' '))
-          }
-        }
-      end
-    }
-  }
-end
-
-File.open(INDEX, 'w') do |file|
-  file.write(builder.to_html)
-end
-
-File.open('./scripts/z-app.js', 'w') do |file|
+File.open("#{ JS_DIR }/z-app.js", 'w') do |file|
 
   sections = []
   images.each do |image|
@@ -112,4 +80,59 @@ window.addEvent('load', function() {
 });
 eos
             )
+end
+
+s3_styles = upload_files_to_s3(styles, 'jarodlstyles')
+s3_scripts = upload_files_to_s3(scripts, 'jarodlscripts')
+s3_images = upload_files_to_s3(images, 'jarodlphotos')
+
+# build the doc
+builder = Nokogiri::HTML::Builder.new do |doc|
+  doc.html {
+    doc.head {
+      doc.title {
+        doc.text 'Jarod Luebbert'
+      }
+      s3_styles.each do |style|
+        doc.link(
+          :rel => "stylesheet",
+          :href => style,
+          :type => 'text/css',
+          :media => 'screen',
+          :charset => 'utf-8'
+        )
+      end
+      s3_scripts.each do |script|
+        doc.script(
+          :type => 'text/javascript',
+          :charset => 'utf-8',
+          :src => script
+        )
+      end
+    }
+    doc.body {
+      doc.div(:id => 'howto') {
+        doc.text 'Use j, k, up, down, or spacebar to navigate.'
+      }
+      images.each_with_index do |image, i|
+        @exif = EXIFR::JPEG.new(image)
+        doc.div(:id => "#{ filename_to_permalink(image) }",
+                :class => 'photo') {
+          doc.img(:src => s3_images[i], :alt => image)
+          doc.div(:class => 'toolbar') {
+            doc.span("#{ @exif.focal_length }mm")
+            doc.span(@exif.exposure_time.to_s)
+            doc.span("f/#{ @exif.f_number.to_f }")
+            doc.span(@exif.model.split(' ').each { |w|
+              w.capitalize!
+            }.join(' '))
+          }
+        }
+      end
+    }
+  }
+end
+
+File.open(INDEX, 'w') do |file|
+  file.write(builder.to_html)
 end
