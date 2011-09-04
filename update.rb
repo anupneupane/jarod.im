@@ -26,6 +26,10 @@ def filter_files(files, regex)
   arr
 end
 
+def filename_to_permalink(filename)
+  filename.gsub('/', '-').gsub('.jpg', '').gsub('images-', '')
+end
+
 images = filter_files(image_files, /.+.jpg/)
 styles = filter_files(css_files, /.+.css/)
 scripts = filter_files(js_files, /.+.js/).reverse()
@@ -58,9 +62,10 @@ builder = Nokogiri::HTML::Builder.new do |doc|
       doc.div(:id => 'howto') {
         doc.text 'Use j, k, up, down, or spacebar to navigate.'
       }
-      images.each_with_index do |image, i|
+      images.each do |image|
         @exif = EXIFR::JPEG.new(image)
-        doc.div(:id => "#{i}", :class => 'photo') {
+        doc.div(:id => "#{ filename_to_permalink(image) }",
+                :class => 'photo') {
           doc.img(:src => image, :alt => image)
           doc.div(:class => 'toolbar') {
             doc.span("#{ @exif.focal_length }mm")
@@ -81,10 +86,12 @@ File.open(INDEX, 'w') do |file|
 end
 
 File.open('./scripts/z-app.js', 'w') do |file|
+
   sections = []
-  (0..images.size()-1).to_a.each do |i|
-    sections << "#" + i.to_s
+  images.each do |image|
+    sections << "##{ filename_to_permalink(image) }"
   end
+
   file.write(
 <<-eos
 window.addEvent('load', function() {
@@ -94,7 +101,7 @@ window.addEvent('load', function() {
   });
   ns.activate();
   ns.addEvent('scrollComplete', function(section, curr, ns) {
-    window.location.hash = '#' + curr;
+    window.location.hash = '#' + section.id;
   });
   ns.addEvent('nextSection', function(section, curr, ns) {
     $('howto').fade('out');
