@@ -1,6 +1,6 @@
 window.addEvent('load', function() {
   var ns = new NavSimple({
-    sections: '#0,#1,#2,#3,#4,#5,#6,#7,#8,#9',
+    sections: '#0,#1,#2,#3,#4,#5,#6,#7,#8,#9,#10',
     offset: { x: 0, y: 0 }
   });
   ns.activate();
