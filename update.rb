@@ -29,7 +29,7 @@ def filter_files(files, regex)
 end
 
 def filename_to_permalink(filename)
-  filename.gsub('/', '-').gsub('.jpg', '').gsub('images-', '')
+  filename.gsub('/', '-').gsub('.jpg', '').gsub('_images-', '')
 end
 
 config = YAML.load(File.read(CONFIG_FILE))
