@@ -43,6 +43,7 @@ def upload_files_to_s3(filenames, bucket_name)
     basename = File.basename(filename)
     o = bucket.objects[basename]
     o.write(:file => filename)
+    o.acl = :public_read
     puts "#{ filename } => #{ o.public_url }"
     public_urls << o.public_url
   end
@@ -68,6 +69,9 @@ window.addEvent('load', function() {
     offset: { x: 0, y: 0 }
   });
   ns.activate();
+  $('goto-top').addEvent('click', function () {
+    ns.toSection(0, ns);
+  });
   ns.addEvent('scrollComplete', function(section, curr, ns) {
     window.location.hash = '#' + section.id;
   });
@@ -111,24 +115,48 @@ builder = Nokogiri::HTML::Builder.new do |doc|
       end
     }
     doc.body {
-      doc.div(:id => 'howto') {
-        doc.text 'Use j, k, up, down, or spacebar to navigate.'
-      }
-      images.each_with_index do |image, i|
-        @exif = EXIFR::JPEG.new(image)
-        doc.div(:id => "#{ filename_to_permalink(image) }",
-                :class => 'photo') {
-          doc.img(:src => s3_images[i], :alt => image)
-          doc.div(:class => 'toolbar') {
-            doc.span("#{ @exif.focal_length }mm")
-            doc.span(@exif.exposure_time.to_s)
-            doc.span("f/#{ @exif.f_number.to_f }")
-            doc.span(@exif.model.split(' ').each { |w|
-              w.capitalize!
-            }.join(' '))
+      doc.div(:class => 'container') {
+        doc.div(:class => 'topbar-wrapper', :style => 'z-index: 5;') {
+          doc.div(:class => 'topbar') {
+            doc.div(:class => 'topbar-inner') {
+              doc.div(:class => 'container') {
+                doc.h3 {
+                  doc.a(:href => '#', :id => 'goto-top') {
+                    doc.text 'Jarod Luebbert'
+                  }
+                }
+                doc.ul(:class => 'nav secondary-nav') {
+                  doc.li {
+                    doc.a(:href => 'http://twitter.com/jarodl') {
+                      doc.text 'Follow on Twitter'
+                    }
+                  }
+                }
+              }
+            }
           }
         }
-      end
+        doc.div(:class => 'alert-message warning', :id => 'howto') {
+          doc.p {
+            doc.text 'Use j, k, up, down, or spacebar to navigate.'
+          }
+        }
+        images.each_with_index do |image, i|
+          @exif = EXIFR::JPEG.new(image)
+          doc.div(:id => "#{ filename_to_permalink(image) }",
+                  :class => 'photo') {
+            doc.img(:src => s3_images[i], :alt => image)
+            doc.div(:class => 'toolbar') {
+              doc.span("#{ @exif.focal_length }mm")
+              doc.span(@exif.exposure_time.to_s)
+              doc.span("f/#{ @exif.f_number.to_f }")
+              doc.span(@exif.model.split(' ').each { |w|
+                w.capitalize!
+              }.join(' '))
+            }
+          }
+        end
+      }
     }
   }
 end
