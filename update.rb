@@ -138,7 +138,10 @@ builder = Nokogiri::HTML::Builder.new do |doc|
         }
         doc.div(:class => 'alert-message warning', :id => 'howto') {
           doc.p {
-            doc.text 'Use j, k, up, down, or spacebar to navigate.'
+            doc.text 'Use j, k, up, down, or spacebar to navigate. '
+            doc.a(:href => '#dismiss', :class => 'close', :id => 'dismiss-howto') {
+              doc.text 'x'
+            }
           }
         }
         images.each_with_index do |image, i|
