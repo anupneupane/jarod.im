@@ -88,8 +88,6 @@ eos
             )
 end
 
-# s3_styles = upload_files_to_s3(styles, 'jarodlstyles')
-# s3_scripts = upload_files_to_s3(scripts, 'jarodlscripts')
 s3_images = upload_files_to_s3(images, 'jarodlphotos')
 
 # build the doc
