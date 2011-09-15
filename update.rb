@@ -5,8 +5,8 @@ require 'exifr'
 require 'aws-sdk'
 
 IMAGE_DIR = './_images'
-CSS_DIR = './_styles'
-JS_DIR = './_scripts'
+CSS_DIR = './styles'
+JS_DIR = './scripts'
 INDEX = './index.html'
 CONFIG_FILE = './_config.yml'
 
@@ -42,8 +42,10 @@ def upload_files_to_s3(filenames, bucket_name)
   filenames.each do |filename|
     basename = File.basename(filename)
     o = bucket.objects[basename]
-    o.write(:file => filename)
-    o.acl = :public_read
+    if o.nil?
+      o.write(:file => filename)
+      o.acl = :public_read
+    end
     puts "#{ filename } => #{ o.public_url }"
     public_urls << o.public_url
   end
@@ -86,8 +88,8 @@ eos
             )
 end
 
-s3_styles = upload_files_to_s3(styles, 'jarodlstyles')
-s3_scripts = upload_files_to_s3(scripts, 'jarodlscripts')
+# s3_styles = upload_files_to_s3(styles, 'jarodlstyles')
+# s3_scripts = upload_files_to_s3(scripts, 'jarodlscripts')
 s3_images = upload_files_to_s3(images, 'jarodlphotos')
 
 # build the doc
@@ -97,7 +99,7 @@ builder = Nokogiri::HTML::Builder.new do |doc|
       doc.title {
         doc.text 'Jarod Luebbert'
       }
-      s3_styles.each do |style|
+      styles.each do |style|
         doc.link(
           :rel => "stylesheet",
           :href => style,
@@ -106,7 +108,7 @@ builder = Nokogiri::HTML::Builder.new do |doc|
           :charset => 'utf-8'
         )
       end
-      s3_scripts.each do |script|
+      scripts.each do |script|
         doc.script(
           :type => 'text/javascript',
           :charset => 'utf-8',
@@ -150,12 +152,19 @@ builder = Nokogiri::HTML::Builder.new do |doc|
                   :class => 'photo') {
             doc.img(:src => s3_images[i], :alt => image)
             doc.div(:class => 'toolbar') {
-              doc.span("#{ @exif.focal_length }mm")
-              doc.span(@exif.exposure_time.to_s)
-              doc.span("f/#{ @exif.f_number.to_f }")
-              doc.span(@exif.model.split(' ').each { |w|
-                w.capitalize!
-              }.join(' '))
+              doc.p {
+                doc.span("#{ @exif.focal_length }mm")
+                doc.span(@exif.exposure_time.to_s)
+                doc.span("f/#{ @exif.f_number.to_f }")
+                doc.span(@exif.model.split(' ').each { |w|
+                  w.capitalize!
+                }.join(' '))
+                doc.span {
+                  doc.a(:href => "#{ filename_to_permalink(image) }", :class => 'btn primary') {
+                    doc.text 'More..'
+                  }
+                }
+              }
             }
           }
         end
@@ -166,4 +175,132 @@ end
 
 File.open(INDEX, 'w') do |file|
   file.write(builder.to_html)
+end
+
+images.each_with_index do |image, i|
+  perm = filename_to_permalink(image)
+  unless File.directory? perm
+    Dir.mkdir(perm)
+  end
+  File.open("#{perm}/index.html", 'w') do |file|
+    builder = Nokogiri::HTML::Builder.new do |doc|
+      doc.html {
+        doc.head {
+          doc.title {
+            doc.text "Jarod Luebbert - #{ perm }"
+          }
+          styles.each do |style|
+            doc.link(
+              :rel => "stylesheet",
+              :href => "../" + style,
+              :type => 'text/css',
+              :media => 'screen',
+              :charset => 'utf-8'
+            )
+          end
+          scripts.each do |script|
+            doc.script(
+              :type => 'text/javascript',
+              :charset => 'utf-8',
+              :src => "../" + script
+            )
+          end
+        }
+        doc.body {
+          doc.div(:class => 'container') {
+            doc.div(:class => 'topbar-wrapper', :style => 'z-index: 5;') {
+              doc.div(:class => 'topbar') {
+                doc.div(:class => 'topbar-inner') {
+                  doc.div(:class => 'container') {
+                    doc.h3 {
+                      doc.a(:href => '/', :id => 'goto-top') {
+                        doc.text 'Jarod Luebbert'
+                      }
+                    }
+                    doc.ul(:class => 'nav secondary-nav') {
+                      doc.li {
+                        doc.a(:href => 'http://twitter.com/jarodl') {
+                          doc.text 'Follow on Twitter'
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            @exif = EXIFR::JPEG.new(image)
+            doc.div(:id => "#{ filename_to_permalink(image) }",
+                   :class => 'photo') {
+              doc.img(:src => s3_images[i], :alt => image)
+            }
+            doc.div(:class => 'well') {
+              doc.h6(:class => 'title') {
+                doc.text perm
+              }
+              doc.div(:class => 'row') {
+                doc.div(:class => 'span4 columns') {
+                  doc.table {
+                    doc.tr {
+                      doc.td {
+                        doc.strong 'Focal length: '
+                      }
+                      doc.td {
+                        doc.text "#{ @exif.focal_length }mm"
+                      }
+                    }
+                    doc.tr {
+                      doc.td {
+                        doc.strong 'Exposure: '
+                      }
+                      doc.td {
+                        doc.text @exif.exposure_time.to_s
+                      }
+                    }
+                    doc.tr {
+                      doc.td {
+                        doc.strong 'Aperture: '
+                      }
+                      doc.td {
+                        doc.em 'f/'
+                        doc.text @exif.f_number.to_f
+                      }
+                    }
+                    doc.tr {
+                      doc.td {
+                        doc.strong 'Camera: '
+                      }
+                      doc.td {
+                        doc.text @exif.model.split(' ').each { |w| w.capitalize! }.join(' ')
+                      }
+                    }
+                  }
+                }
+                doc.div(:class => 'span11 columns') {
+                  File.open(image.gsub('.jpg', '.md')) { |f|
+                    @text = f.readlines
+                  }
+                  doc.text @text
+                  # doc.text <<-eos
+                  # Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur rhoncus eros sem. Cras tincidunt, mi ut luctus facilisis, ante massa lobortis odio, non pharetra ipsum dolor at mi. Donec mollis purus tristique lacus tincidunt ullamcorper. Nulla pulvinar vestibulum lacinia.
+                  # eos
+                }
+              }
+            }
+            #   doc.div(:class => 'toolbar') {
+            #     doc.p {
+            #       doc.span("#{ @exif.focal_length }mm")
+            #       doc.span(@exif.exposure_time.to_s)
+            #       doc.span("f/#{ @exif.f_number.to_f }")
+            #       doc.span(@exif.model.split(' ').each { |w|
+            #         w.capitalize!
+            #       }.join(' '))
+            #     }
+            #   }
+            # }
+          }
+        }
+      }
+    end
+    file.write(builder.to_html)
+  end
 end
