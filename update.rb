@@ -279,14 +279,11 @@ images.each_with_index do |image, i|
                     }
                   }
                 }
-                doc.div(:class => 'span11 columns') {
+                doc.div(:class => 'span10 columns') {
                   File.open(image.gsub('.jpg', '.md')) { |f|
                     @text = f.readlines
                   }
                   doc.text @text
-                  # doc.text <<-eos
-                  # Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur rhoncus eros sem. Cras tincidunt, mi ut luctus facilisis, ante massa lobortis odio, non pharetra ipsum dolor at mi. Donec mollis purus tristique lacus tincidunt ullamcorper. Nulla pulvinar vestibulum lacinia.
-                  # eos
                 }
               }
             }
