@@ -42,10 +42,10 @@ def upload_files_to_s3(filenames, bucket_name)
   filenames.each do |filename|
     basename = File.basename(filename)
     o = bucket.objects[basename]
-    if o.nil?
+    # if o.nil?
       o.write(:file => filename)
       o.acl = :public_read
-    end
+    # end
     puts "#{ filename } => #{ o.public_url }"
     public_urls << o.public_url
   end
@@ -146,10 +146,15 @@ builder = Nokogiri::HTML::Builder.new do |doc|
         }
         images.each_with_index do |image, i|
           @exif = EXIFR::JPEG.new(image)
+          if @exif.width >= 850
+            @toolbar_class = 'landscape'
+          else
+            @toolbar_class = 'portrait'
+          end
           doc.div(:id => "#{ filename_to_permalink(image) }",
                   :class => 'photo') {
             doc.img(:src => s3_images[i], :alt => image)
-            doc.div(:class => 'toolbar') {
+            doc.div(:class => "toolbar #{ @toolbar_class }") {
               doc.p {
                 doc.span("#{ @exif.focal_length }mm")
                 doc.span(@exif.exposure_time.to_s)

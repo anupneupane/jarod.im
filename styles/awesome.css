@@ -24,11 +24,18 @@ img {
   position: relative;
   bottom: 40px;
   height: 40px;
-  width: 850px;
   text-align: right;
   background-color: rgba(0, 0, 0, 0.8);
   overflow: hidden;
   opacity: 0;
+}
+
+.landscape {
+  width: 850px;
+}
+
+.portrait {
+  width: 570px;
 }
 
 .toolbar span {
