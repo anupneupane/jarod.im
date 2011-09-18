@@ -242,7 +242,7 @@ images.each_with_index do |image, i|
                 doc.text perm
               }
               doc.div(:class => 'row') {
-                doc.div(:class => 'span4 columns') {
+                doc.div(:class => 'span5 columns') {
                   doc.table {
                     doc.tr {
                       doc.td {
@@ -279,7 +279,7 @@ images.each_with_index do |image, i|
                     }
                   }
                 }
-                doc.div(:class => 'span10 columns') {
+                doc.div(:class => 'span8 columns') {
                   File.open(image.gsub('.jpg', '.md')) { |f|
                     @text = f.readlines
                   }
