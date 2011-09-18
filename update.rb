@@ -92,7 +92,7 @@ s3_images = upload_files_to_s3(images, 'jarodlphotos')
 
 # build the doc
 builder = Nokogiri::HTML::Builder.new do |doc|
-  doc.html {
+  doc.html(:lang => 'en-US') {
     doc.head {
       doc.title {
         doc.text 'Jarod Luebbert'
