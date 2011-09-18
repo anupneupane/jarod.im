@@ -42,10 +42,10 @@ def upload_files_to_s3(filenames, bucket_name)
   filenames.each do |filename|
     basename = File.basename(filename)
     o = bucket.objects[basename]
-    # if o.nil?
+    if o.nil?
       o.write(:file => filename)
       o.acl = :public_read
-    # end
+    end
     puts "#{ filename } => #{ o.public_url }"
     public_urls << o.public_url
   end
@@ -92,8 +92,9 @@ s3_images = upload_files_to_s3(images, 'jarodlphotos')
 
 # build the doc
 builder = Nokogiri::HTML::Builder.new do |doc|
-  doc.html(:lang => 'en-US') {
+  doc.html(:lang => 'en') {
     doc.head {
+      doc.meta(:name => 'google', :value => 'notranslate') {}
       doc.title {
         doc.text 'Jarod Luebbert'
       }
@@ -136,14 +137,14 @@ builder = Nokogiri::HTML::Builder.new do |doc|
             }
           }
         }
-        doc.div(:class => 'alert-message warning', :id => 'howto') {
-          doc.p {
-            doc.text 'Use j, k, up, down, or spacebar to navigate. '
-            doc.a(:href => '#dismiss', :class => 'close', :id => 'dismiss-howto') {
-              doc.text 'x'
-            }
-          }
-        }
+        # doc.div(:class => 'alert-message warning', :id => 'howto') {
+        #   doc.p {
+        #     doc.text 'Use j, k, up, down, or spacebar to navigate. '
+        #     doc.a(:href => '#dismiss', :class => 'close', :id => 'dismiss-howto') {
+        #       doc.text 'x'
+        #     }
+        #   }
+        # }
         images.each_with_index do |image, i|
           @exif = EXIFR::JPEG.new(image)
           if @exif.width >= 850
