@@ -266,11 +266,17 @@ images.each_with_index do |image, i|
                     }
                   }
                 }
-                doc.div(:class => 'span10 columns') {
+                doc.div(:class => 'span9 columns') {
                   File.open(image.gsub('.jpg', '.md')) { |f|
                     @text = f.readlines
                   }
+                  File.open('share.html') { |f|
+                    @share = f.readlines
+                  }
                   doc.text @text
+                  doc.div(:class => 'share') {
+                    doc.cdata @share
+                  }
                 }
               }
             }

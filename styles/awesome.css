@@ -17,6 +17,10 @@ html, body {
   padding: 119px 0;
 }
 
+.share {
+  padding: 15px 0;
+}
+
 .italics {
   font-style: italic;
 }
