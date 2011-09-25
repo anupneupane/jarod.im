@@ -117,28 +117,6 @@ builder = Nokogiri::HTML::Builder.new do |doc|
     }
     doc.body {
       doc.div(:class => 'container') {
-        doc.div(:class => 'topbar-wrapper', :style => 'z-index: 5;') {
-          doc.div(:class => 'topbar') {
-            doc.div(:class => 'topbar-inner') {
-              doc.div(:class => 'container') {
-                doc.h3 {
-                  doc.a(:href => '#', :id => 'goto-top') {
-                    doc.text 'Jarod Luebbert'
-                  }
-                }
-                doc.ul(:class => 'nav secondary-nav') {
-                  doc.li {
-                    doc.span {
-                      doc.a(:href => 'http://twitter.com/jarodl') {
-                        doc.text 'Follow on Twitter'
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
         # doc.div(:class => 'alert-message warning', :id => 'howto') {
         #   doc.p {
         #     doc.text 'Use j, k, up, down, or spacebar to navigate. '
@@ -174,6 +152,13 @@ builder = Nokogiri::HTML::Builder.new do |doc|
             }
           }
         end
+        doc.div(:class => 'bottom') {
+          doc.h5 {
+            doc.a(:href => 'http://twitter.com/jarodl') {
+              doc.text 'Follow on Twitter'
+            }
+          }
+        }
       }
     }
   }

@@ -2,8 +2,9 @@ function resize() {
   var windowHeight = window.getSize().y;
   var windowWidth = window.getSize().x;
   var photoHeight = 567;
-  var padding = (windowHeight - 567) / 2;
   Array.each($$('div.photo'), function(photo) {
+    var img = photo.getElement('img');
+    var padding = (windowHeight - img.getSize().y) / 2;
     photo.setStyle('padding', padding + 'px 0px');
     photo.addEvent('mouseenter', function() {
       this.getElement('.toolbar').fade('in');
