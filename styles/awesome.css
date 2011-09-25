@@ -8,12 +8,13 @@ html, body {
 }
 
 .bottom {
-  text-align: center;
   padding-bottom: 20px;
 }
 
 .follow {
-  float: right;
+}
+
+#widget {
 }
 
 .photo {
