@@ -123,13 +123,15 @@ builder = Nokogiri::HTML::Builder.new do |doc|
               doc.div(:class => 'container') {
                 doc.h3 {
                   doc.a(:href => '#', :id => 'goto-top') {
-                    doc.text 'Jarod Luebbert'
+                    doc.text 'jarod luebbert'
                   }
                 }
                 doc.ul(:class => 'nav secondary-nav') {
                   doc.li {
-                    doc.a(:href => 'http://twitter.com/jarodl') {
-                      doc.text 'Follow on Twitter'
+                    doc.h6 {
+                      doc.a(:href => 'http://twitter.com/jarodl') {
+                        doc.text 'Follow on Twitter'
+                      }
                     }
                   }
                 }

@@ -1,5 +1,20 @@
+@font-face {
+    font-family: 'FunktionRegular';
+    src: url('funktion-webfont.eot');
+    src: url('funktion-webfont.eot?#iefix') format('embedded-opentype'),
+         url('funktion-webfont.woff') format('woff'),
+         url('funktion-webfont.ttf') format('truetype'),
+         url('funktion-webfont.svg#FunktionRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html, body {
-  background: rgb(20, 20, 20);
+  background: url('../images/bg.png') repeat rgb(20, 20, 20);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'FunktionRegular';
 }
 
 .container {
@@ -17,7 +32,7 @@ html, body {
 }
 
 img {
-  box-shadow: 0 0 50px rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgb(0, 0, 0);
 }
 
 .toolbar {
