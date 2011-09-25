@@ -199,26 +199,6 @@ images.each_with_index do |image, i|
         }
         doc.body {
           doc.div(:class => 'container') {
-            doc.div(:class => 'topbar-wrapper', :style => 'z-index: 5;') {
-              doc.div(:class => 'topbar') {
-                doc.div(:class => 'topbar-inner') {
-                  doc.div(:class => 'container') {
-                    doc.h3 {
-                      doc.a(:href => '/', :id => 'goto-top') {
-                        doc.text 'Jarod Luebbert'
-                      }
-                    }
-                    doc.ul(:class => 'nav secondary-nav') {
-                      doc.li {
-                        doc.a(:href => 'http://twitter.com/jarodl') {
-                          doc.text 'Follow on Twitter'
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
             @exif = EXIFR::JPEG.new(image)
             doc.div(:id => "#{ filename_to_permalink(image) }",
                    :class => 'photo') {
