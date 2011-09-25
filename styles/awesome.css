@@ -14,7 +14,8 @@ html, body {
 .follow {
 }
 
-#widget {
+#widget > * {
+  float: right;
 }
 
 .photo {
