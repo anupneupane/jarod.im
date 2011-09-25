@@ -244,12 +244,12 @@ images.each_with_index do |image, i|
                       }
                     }
                   }
-                  File.open('share.html') { |f|
-                    @share = f.readlines
-                  }
-                  doc.div(:class => 'share') {
-                    doc.cdata @share
-                  }
+                  # File.open('share.html') { |f|
+                  #   @share = f.readlines
+                  # }
+                  # doc.div(:class => 'share') {
+                  #   doc.cdata @share
+                  # }
                 }
                 doc.div(:class => 'span9 columns') {
                   File.open(image.gsub('.jpg', '.md')) { |f|
