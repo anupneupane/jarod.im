@@ -13,10 +13,6 @@ html, body {
   background: url('../images/bg.png') repeat rgb(20, 20, 20);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'FunktionRegular';
-}
-
 .container {
   width: 850px;
   margin: 0 auto;
