@@ -8,8 +8,12 @@ html, body {
 }
 
 .bottom {
-  text-align: center;
+  /* text-align: center;*/
   padding-bottom: 20px;
+}
+
+.follow {
+  width: 100%;
 }
 
 .photo {
