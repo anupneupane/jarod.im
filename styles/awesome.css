@@ -13,7 +13,7 @@ html, body {
 }
 
 #widget {
-  width: 100%;
+  width: 100% !important;
 }
 
 .follow {
