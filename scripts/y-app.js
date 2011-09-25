@@ -27,7 +27,7 @@ function resize() {
   var left = windowWidth / 2 - (howto.getSize().x / 2);
   howto.setStyle('left', left);
 }
-window.addEvent('domready', function() {
+window.addEvent('load', function() {
   resize();
 });
 window.addEvent('resize', function() {
