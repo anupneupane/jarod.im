@@ -12,12 +12,8 @@ html, body {
   padding-bottom: 20px;
 }
 
-#widget {
-  width: 100% !important;
-}
-
 .follow {
-  width: 100%;
+  float: right;
 }
 
 .photo {
