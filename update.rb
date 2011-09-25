@@ -153,11 +153,10 @@ builder = Nokogiri::HTML::Builder.new do |doc|
           }
         end
         doc.div(:class => 'bottom') {
-          doc.h5 {
-            doc.a(:href => 'http://twitter.com/jarodl') {
-              doc.text 'Follow on Twitter'
-            }
+          File.open('follow.html') { |f|
+            @follow = f.readlines
           }
+          doc.cdata @follow
         }
       }
     }
