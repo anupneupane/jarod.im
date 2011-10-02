@@ -42,10 +42,10 @@ def upload_files_to_s3(filenames, bucket_name)
   filenames.each do |filename|
     basename = File.basename(filename)
     o = bucket.objects[basename]
-    # if o.nil?
+    if o.nil?
       o.write(:file => filename)
       o.acl = :public_read
-    # end
+    end
     puts "#{ filename } => #{ o.public_url }"
     public_urls << o.public_url
   end
@@ -95,6 +95,7 @@ builder = Nokogiri::HTML::Builder.new do |doc|
   doc.html(:lang => 'en') {
     doc.head {
       doc.meta(:name => 'google', :value => 'notranslate') {}
+      doc.meta(:property => 'og:image', :content => 'https://jarodlphotos.s3.amazonaws.com/mailman.jpg') {}
       doc.title {
         doc.text 'Jarod Luebbert'
       }
