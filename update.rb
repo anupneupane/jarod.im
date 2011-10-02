@@ -272,6 +272,12 @@ images.each_with_index do |image, i|
             #   }
             # }
           }
+          doc.div(:class => 'bottom') {
+            File.open('follow.html') { |f|
+              @follow = f.readlines
+            }
+            doc.cdata @follow
+          }
         }
       }
     end
