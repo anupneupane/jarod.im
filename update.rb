@@ -71,18 +71,18 @@ window.addEvent('load', function() {
     offset: { x: 0, y: 0 }
   });
   ns.activate();
-  # $('goto-top').addEvent('click', function () {
-  #   ns.toSection(0, ns);
-  # });
+  // $('goto-top').addEvent('click', function () {
+  //   ns.toSection(0, ns);
+  // });
   ns.addEvent('scrollComplete', function(section, curr, ns) {
     window.location.hash = '#' + section.id;
   });
-  # ns.addEvent('nextSection', function(section, curr, ns) {
-  #   $('howto').fade('out');
-  # });
-  # ns.addEvent('previousSection', function(section, curr, ns) {
-  #   $('howto').fade('out');
-  # });
+  // ns.addEvent('nextSection', function(section, curr, ns) {
+  //   $('howto').fade('out');
+  // });
+  // ns.addEvent('previousSection', function(section, curr, ns) {
+  //   $('howto').fade('out');
+  // });
 });
 eos
             )
