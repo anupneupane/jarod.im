@@ -16,16 +16,16 @@ function resize() {
   Array.each($$('div.toolbar'), function(toolbar) {
     toolbar.setStyle('bottom', toolbar.getSize().y);
   });
-  var howto = document.id('howto');
-  document.id('dismiss-howto').addEvent('click', function () {
-    howto.fade('out');
-  });
-  var height = howto.getSize().y;
+  // var howto = document.id('howto');
+  // document.id('dismiss-howto').addEvent('click', function () {
+  //   howto.fade('out');
+  // });
+  // var height = howto.getSize().y;
   // if (padding / 2 > 15) {
   //   howto.setStyle('top', (padding / 2) - height);
   // }
-  var left = windowWidth / 2 - (howto.getSize().x / 2);
-  howto.setStyle('left', left);
+  // var left = windowWidth / 2 - (howto.getSize().x / 2);
+  // howto.setStyle('left', left);
 }
 window.addEvent('load', function() {
   resize();
