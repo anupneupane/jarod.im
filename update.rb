@@ -42,10 +42,10 @@ def upload_files_to_s3(filenames, bucket_name)
   filenames.each do |filename|
     basename = File.basename(filename)
     o = bucket.objects[basename]
-    if o.nil?
+    # if o.nil?
       o.write(:file => filename)
       o.acl = :public_read
-    end
+    # end
     puts "#{ filename } => #{ o.public_url }"
     public_urls << o.public_url
   end
