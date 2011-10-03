@@ -95,7 +95,7 @@ builder = Nokogiri::HTML::Builder.new do |doc|
   doc.html(:lang => 'en') {
     doc.head {
       doc.meta(:name => 'google', :value => 'notranslate') {}
-      doc.meta(:property => 'og:image', :content => 'https://jarodlphotos.s3.amazonaws.com/mailman.jpg') {}
+      doc.meta(:property => 'og:image', :content => 'http://jarodlphotos.s3.amazonaws.com/mailman.jpg') {}
       doc.meta(:property => 'fb:admins', :content => '505816573') {}
       doc.title {
         doc.text 'Jarod Luebbert'
