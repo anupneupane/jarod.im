@@ -42,10 +42,10 @@ def upload_files_to_s3(filenames, bucket_name)
   filenames.each do |filename|
     basename = File.basename(filename)
     o = bucket.objects[basename]
-    # if o.nil?
+    if o.nil?
       o.write(:file => filename)
       o.acl = :public_read
-    # end
+    end
     puts "#{ filename } => #{ o.public_url }"
     public_urls << o.public_url
   end
@@ -204,62 +204,62 @@ images.each_with_index do |image, i|
                    :class => 'photo') {
               doc.img(:src => s3_images[i], :alt => image)
             }
-            doc.div(:class => 'well') {
-              doc.h6(:class => 'title') {
-                doc.text perm
-              }
-              doc.div(:class => 'row') {
-                doc.div(:class => 'span4 columns') {
-                  doc.table {
-                    doc.tr {
-                      doc.td {
-                        doc.strong 'Focal length: '
-                      }
-                      doc.td {
-                        doc.text "#{ @exif.focal_length }mm"
-                      }
-                    }
-                    doc.tr {
-                      doc.td {
-                        doc.strong 'Exposure: '
-                      }
-                      doc.td {
-                        doc.text @exif.exposure_time.to_s
-                      }
-                    }
-                    doc.tr {
-                      doc.td {
-                        doc.strong 'Aperture: '
-                      }
-                      doc.td {
-                        doc.em 'f/'
-                        doc.text @exif.f_number.to_f
-                      }
-                    }
-                    doc.tr {
-                      doc.td {
-                        doc.strong 'Camera: '
-                      }
-                      doc.td {
-                        doc.text @exif.model.split(' ').each { |w| w.capitalize! }.join(' ')
-                      }
-                    }
-                  }
-                  # File.open('share.html') { |f|
-                  #   @share = f.readlines
-                  # }
-                  # doc.div(:class => 'share') {
-                  #   doc.cdata @share
-                  # }
-                }
-                doc.div(:class => 'span9 columns') {
-                  File.open(image.gsub('.jpg', '.md')) { |f|
-                    @text = f.readlines
-                  }
-                  doc.text @text
-                }
-              }
-            }
+            # doc.div(:class => 'well') {
+            #   doc.h6(:class => 'title') {
+            #     doc.text perm
+            #   }
+            #   doc.div(:class => 'row') {
+            #     doc.div(:class => 'span4 columns') {
+            #       doc.table {
+            #         doc.tr {
+            #           doc.td {
+            #             doc.strong 'Focal length: '
+            #           }
+            #           doc.td {
+            #             doc.text "#{ @exif.focal_length }mm"
+            #           }
+            #         }
+            #         doc.tr {
+            #           doc.td {
+            #             doc.strong 'Exposure: '
+            #           }
+            #           doc.td {
+            #             doc.text @exif.exposure_time.to_s
+            #           }
+            #         }
+            #         doc.tr {
+            #           doc.td {
+            #             doc.strong 'Aperture: '
+            #           }
+            #           doc.td {
+            #             doc.em 'f/'
+            #             doc.text @exif.f_number.to_f
+            #           }
+            #         }
+            #         doc.tr {
+            #           doc.td {
+            #             doc.strong 'Camera: '
+            #           }
+            #           doc.td {
+            #             doc.text @exif.model.split(' ').each { |w| w.capitalize! }.join(' ')
+            #           }
+            #         }
+            #       }
+            #       # File.open('share.html') { |f|
+            #       #   @share = f.readlines
+            #       # }
+            #       # doc.div(:class => 'share') {
+            #       #   doc.cdata @share
+            #       # }
+            #     }
+            #     doc.div(:class => 'span9 columns') {
+            #       File.open(image.gsub('.jpg', '.md')) { |f|
+            #         @text = f.readlines
+            #       }
+            #       doc.text @text
+            #     }
+            #   }
+            # }
             #   doc.div(:class => 'toolbar') {
             #     doc.p {
             #       doc.span("#{ @exif.focal_length }mm")
