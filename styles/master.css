@@ -1,0 +1,47 @@
+html, body {
+	background: url('../images/bg.png') repeat rgb(20, 20, 20);
+}
+
+.container {
+	/* position: absolute;*/
+	/* width: 100%;*/
+	/* height: 100%;*/
+	/* overflow: hidden*/
+}
+
+.bottom {
+	/* position: absolute;*/
+  text-align: center;
+  bottom: 50px;
+}
+
+.photo {
+	text-align: center;
+	padding: 119px 0;
+}
+
+.share {
+	padding: 15px 0;
+}
+
+.italics {
+	font-style: italic;
+}
+
+img {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#howto {
+	min-width: 425px;
+	opacity: 0.9;
+	bottom: 5px;
+	position: fixed;
+	left: 39%;
+}
+
+.well {
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	background-color: rgba(0, 0, 0, 0.35);
+	margin-top: -40px;
+}
