@@ -10,9 +10,10 @@ html, body {
 }
 
 .bottom {
-	/* position: absolute;*/
+  position: fixed;
   text-align: center;
-  bottom: 50px;
+  bottom: 20px;
+  width: 100%;
 }
 
 .photo {
