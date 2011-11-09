@@ -2,18 +2,25 @@ html, body {
 	background: url('../images/bg.png') repeat rgb(20, 20, 20);
 }
 
-.container {
-	/* position: absolute;*/
-	/* width: 100%;*/
-	/* height: 100%;*/
-	/* overflow: hidden*/
+header {
+	text-align: center;
+	margin: 25px 0;
+}
+
+.share {
+	text-align: center;
+	margin: 20px 0 20px 20px;
+}
+
+.bottom p {
+	margin-bottom: 0;
 }
 
 .bottom {
-  position: fixed;
-  text-align: center;
-  bottom: 20px;
-  width: 100%;
+	padding: 25px 0;
+	margin: 100px 0 40px 0;
+	text-align: center;
+	width: 100%;
 }
 
 .photo {
@@ -29,24 +36,66 @@ html, body {
 	font-style: italic;
 }
 
-img {
-  width: 75%;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+.span16 a,
+.span8 a,
+.span-one-third a {
+	padding: 0 auto;
+}
+
+.span16 a img,
+.span8 a img,
+.span-one-third a img {
+	width: 100%;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),transparent 0 0 0,transparent 0 0 0,transparent 0 0 0,transparent 0 0 0;
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),transparent 0 0 0,transparent 0 0 0,transparent 0 0 0,transparent 0 0 0;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),transparent 0 0 0,transparent 0 0 0,transparent 0 0 0,transparent 0 0 0;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
 }
 
 .row {
+	padding: 25px 0;
 }
 
-#howto {
-	min-width: 425px;
-	opacity: 0.9;
-	bottom: 5px;
-	position: fixed;
-	left: 39%;
+/* bootstrap */
+
+.sunk {
+	background: rgba(0, 0, 0, 0.05);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	-webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.35),0 1px 0 rgba(255, 255, 255, 0.025), transparent 0 0 0, transparent 0 0 0, transparent 0 0 0;
+	-moz-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.35),0 1px 0 rgba(255, 255, 255, 0.025), transparent 0 0 0, transparent 0 0 0, transparent 0 0 0;
+	box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.35),0 1px 0 rgba(255, 255, 255, 0.025), transparent 0 0 0, transparent 0 0 0, transparent 0 0 0;
 }
 
-.well {
-	border: 1px solid rgba(0, 0, 0, 0.15);
-	background-color: rgba(0, 0, 0, 0.35);
-	margin-top: -40px;
+/* custom style for view */
+
+.viewer {
+	background-color: rgba(0, 0, 0, 0.92);
+}
+
+/* social plugins */
+
+.twitter-follow-button,
+.twitter-share-button {
+	margin: -5px 0 !important;
+}
+
+.twitter-follow-button,
+.twitter-share-button,
+.fb-like {
+	height: 22px !important;
+	line-height: 22px !important;
+}
+
+.fb-like {
+	
+}
+
+.twitter-follow-button {
+	width: 82px !important;
 }
