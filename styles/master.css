@@ -1,7 +1,8 @@
 html, body {
-    font-family: 'myriad pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
-	background: url('../images/bg.png') repeat #222120;
-	color: white;
+    font-family: Georgia, serif;
+	font-size: 100% normal;
+	background: #FFF;
+	color: #000;
     padding-left: 20px;
 	font-weight: lighter;
 }
@@ -16,11 +17,33 @@ h6 {
 	letter-spacing: 1px;
 }
 
+a.view {
+	line-height: 0;
+	float: left;
+}
+
+h6 {
+	color: #333;
+}
+
+hr {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+    background: -webkit-gradient(linear, left top, right top, from(#ccc), to(#fff));
+    background: -webkit-linear-gradient(left, #ccc, #fff);
+    background: -moz-linear-gradient(left, #ccc, #fff);
+    background: -ms-linear-gradient(left, #ccc, #fff);
+    background: -o-linear-gradient(left, #ccc, #fff);
+}
+
 a,
 a:visited,
 a:active {
     text-decoration: none;
-	color: white;
+	color: #000;
 }
 
 a:hover {
@@ -29,41 +52,13 @@ a:hover {
 }
 
 .header {
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 .share {
-    margin: 20px 0 20px 0px;
-}
-
-.bottom p {
-    margin-bottom: 0;
-}
-
-.bottom {
-    padding: 25px 0;
-    margin: 100px 0 40px 0;
-}
-
-.photo {
-    text-align: center;
-    padding: 119px 0;
-}
-
-.share {
-	border-top: 1px solid #222;
-    margin: 20px 0 0 0 !important;
+    margin: 0 !important;
     text-align:center;
     padding: 15px 0;
-}
-
-hr {
-	margin: 0;
-	border-bottom: 1px solid #333;
-}
-
-.italics {
-    font-style: italic;
 }
 
 .right {
@@ -95,14 +90,13 @@ hr {
 /* custom style for view */
 
 .viewer {
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(0, 0, 0, 1.0);
 }
 
 /* social plugins */
 
 .fb-like {
 	text-align: center;
-    height: 22px !important;
-    line-height: 22px !important;
+    height: 20px !important;
+    line-height: 20px !important;
 }
-
