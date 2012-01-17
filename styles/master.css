@@ -14,6 +14,7 @@ h4,
 h5,
 h6 {
 	font-weight: normal;
+  font-size: 1.4em;
 	letter-spacing: 1px;
 }
 
@@ -24,6 +25,11 @@ a.view {
 
 h6 {
 	color: #333;
+}
+
+.center {
+  display: block;
+  margin: 0 auto;
 }
 
 hr {
@@ -85,6 +91,10 @@ a:hover {
 
 .span16 {
 	width: 708px;
+}
+
+.span8 {
+	width: 344px;
 }
 
 /* custom style for view */
