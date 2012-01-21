@@ -1,9 +1,8 @@
 html, body {
-    font-family: Georgia, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 100% normal;
 	background: #FFF;
 	color: #000;
-    padding-left: 20px;
 	font-weight: lighter;
 }
 
@@ -14,13 +13,21 @@ h4,
 h5,
 h6 {
 	font-weight: normal;
-  font-size: 1.4em;
+    font-size: 1.4em;
 	letter-spacing: 1px;
 }
 
 a.view {
 	line-height: 0;
 	float: left;
+}
+
+.logo {
+	font-family: NewCicleFina, 'Josefin Sans Std Light', Arial, Helvetica, sans-serif;
+	font-weight: lighter;;
+	font-size: 2.5em;
+	color: #fff;
+	text-shadow: 0px 1px 0px rgba(0, 0, 0, 1);
 }
 
 h6 {
@@ -57,8 +64,13 @@ a:hover {
 	color: #0B69D6;
 }
 
-.header {
-    margin-top: 20px;
+#header {
+	padding-top: 34px;
+	padding-bottom: 14px;
+	margin-bottom: 40px;
+	background-color: #111;
+	border-bottom: 5px solid #F33;
+	text-align: center;
 }
 
 .share {
@@ -75,6 +87,7 @@ a:hover {
 
 .row {
     padding: 10px 0;
+	margin-left: 0;
 }
 
 .container {
@@ -109,4 +122,44 @@ a:hover {
 	text-align: center;
     height: 20px !important;
     line-height: 20px !important;
+}
+
+@font-face {
+    font-family: "ChunkFiveRegular";
+    src: url("http://static.tumblr.com/jnt4wuy/PLEl5tm3o/chunkfive-webfont.eot");
+    src: local("?"), url("http://static.tumblr.com/jnt4wuy/kyTl5tm9h/chunkfive-webfont.woff") format("woff"),
+        url("http://static.tumblr.com/jnt4wuy/hk8l5tm82/chunkfive-webfont.ttf") format("truetype"),
+        url("http://static.tumblr.com/jnt4wuy/g3fl5tm4v/chunkfive-webfont.svg#webfontfkE9qT5l") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "NewCicleSemiItalic";
+    src: url("http://static.tumblr.com/jnt4wuy/Fhul5tm49/new_cicle_semi_italic-webfont.eot");
+    src: local("?"), url("http://static.tumblr.com/jnt4wuy/uYrl5tma0/new_cicle_semi_italic-webfont.woff") format("woff"),
+            url("http://static.tumblr.com/jnt4wuy/Dl5l5tm8p/new_cicle_semi_italic-webfont.ttf") format("truetype"),
+            url("http://static.tumblr.com/jnt4wuy/EgZl5tm7d/new_cicle_semi_italic-webfont.svg#webfontS4twq7oI") format("svg");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "NewCicleSemi";
+    src: url("http://static.tumblr.com/jnt4wuy/BFvl5tm4l/new_cicle_semi-webfont.eot");
+    src: local("?"), url("http://static.tumblr.com/jnt4wuy/cR1l5tmb8/new_cicle_semi-webfont.woff") format("woff"),
+            url("http://static.tumblr.com/jnt4wuy/wtVl5tm91/new_cicle_semi-webfont.ttf") format("truetype"),
+            url("http://static.tumblr.com/jnt4wuy/PLsl5tm7q/new_cicle_semi-webfont.svg#webfont2EBF5E0E") format("svg");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "NewCicleFina";
+    src: url("http://static.tumblr.com/jnt4wuy/W0Xl5tm40/new_cicle_fina-webfont.eot");
+    src: local("?"), url("http://static.tumblr.com/jnt4wuy/0vzl5tm9r/new_cicle_fina-webfont.woff") format("woff"),
+            url("http://static.tumblr.com/jnt4wuy/KOnl5tm8e/new_cicle_fina-webfont.ttf") format("truetype"),
+            url("http://static.tumblr.com/jnt4wuy/Kxcl5tm5c/new_cicle_fina-webfont.svg#webfont4pftDFrO") format("svg");
+    font-weight: normal;
+    font-style: normal;
 }
